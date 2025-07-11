@@ -1,3 +1,16 @@
 <h1><%= @event.title %></h1>
 <h2><%= @event.date %> at <%= @event.time %></h2>
 <p><%= @event.description %></p>
+<% if current_user.attended_events.include? @event %>
+    <%= button_to "Leave Event" %>
+<% else %>
+    <%= button_to "Join Event", event_attendances_path(event_id: @event.id), method: :post %>
+<% end %>
+<% if @event.attendees.any? %>
+    <h2>Event Attendees</h2>
+    <ul>
+        <% @event.attendees.each do |user| %>
+            <li><%= user.email %></li>
+        <% end %>
+    </ul>
+<% end %>
