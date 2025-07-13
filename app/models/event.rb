@@ -1,14 +1,7 @@
 class Event < ApplicationRecord
+  scope :upcoming, -> { where("date >= ?", Date.today) }
+  scope :past, -> { where("date < ?", Date.today) }
   belongs_to :creator, class_name: "User"
-
   has_many :event_attendances
   has_many :attendees, through: :event_attendances
-
-  def self.past
-    self.where("date < ?", Date.today)
-  end
-
-  def self.upcoming
-    self.where("date > ?", Date.today)
-  end
 end
