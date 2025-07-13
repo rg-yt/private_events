@@ -21,6 +21,15 @@
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
+  <nav>
+    <%= link_to "Create Event", new_event_path %>
+    <%= link_to "All Events", root_path %>
+    <% if current_user %>
+      <%= link_to "Logout", destroy_user_session_path, data: { turbo_method: :delete} %>
+    <% else %>
+      <%= link_to "Login", new_user_session_path %>
+    <% end %>
+  </nav>
 
   <body>
     <p class="notice"><%= notice %></p>
